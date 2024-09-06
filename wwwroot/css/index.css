@@ -1,0 +1,61 @@
+﻿/*The CSS of the Index Page*/
+
+body {
+    background-color: antiquewhite;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.heading {
+    padding-top: 100px;
+}
+
+    .heading h1 {
+        color: black;
+        font-size: 110px;
+        font-weight: 1000;
+        font-family: fantasy;
+    }
+
+.subheading h1 {
+    color: black;
+    font-size: 50px;
+    font-family: fantasy;
+}
+
+.paragraph {
+    padding-top: 10px;
+    padding-right: 600px;
+}
+
+.paragraph p {
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: monospace;
+}
+
+.button{
+    padding-top: 30px;
+}
+
+.hero-btn {
+    display: ruby;
+    text-decoration: none;
+    color: white;
+    border: 1px solid black;
+    padding: 15px 25px;
+    font-size: 16px;
+    background: black;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .hero-btn:hover {
+        border: 1px solid black;
+        background: transparent;
+        color: black;
+        transition: 1s;
+    }
