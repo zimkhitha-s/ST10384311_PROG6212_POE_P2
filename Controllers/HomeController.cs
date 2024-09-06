@@ -18,7 +18,12 @@ namespace ST10384311PROG6212POE.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult SubmitClaims()
+        {
+            return View();
+        }
+
+        public IActionResult ProcessClaims()
         {
             return View();
         }

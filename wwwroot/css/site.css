@@ -28,7 +28,7 @@ body {
 }
 
     .navigation-bar a {
-        color: white;
+        color: antiquewhite;
         font-weight: bold;
         text-decoration: none;
     }
@@ -45,8 +45,12 @@ body {
 
 }
 
-    .navigation-item a {
-        color: white;
+.navigation-link{
+    color: white;
+}
+
+    .navigation-link:hover {
+        color: antiquewhite;
     }
 
 .nav-item.dropdown {
