@@ -11,22 +11,27 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm">
+        <nav class="navigation-bar navbar-expand-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Contract Monthly Claims System</a>
 
-                <div class="navbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="navigation-list">
+                    <li class="navigation-item dropdown">
+                        <a class="nav-link" asp-area="" asp-controller="" asp-action="">Claims</a>
+                        <ul class="dropdown-content">
+                            <li>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="SubmitClaims">Submit Claims</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ProcessClaims">Process Claims</a>
+                                </li>
+                            <!-- Add more links here if needed -->
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">

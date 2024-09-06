@@ -21,15 +21,76 @@ body {
   margin-bottom: 60px;
 }
 
-nav {
-  background-color: black;
+/* Navbar styling */
+.navigation-bar {
+    background-color: black;
+    padding: 8px ;
 }
 
-nav a{
-    color: white;
-    font-weight: bold;
+    .navigation-bar a {
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+.navigation-list{
+    display: inline-flex;
+    justify-content: space-between;
+    padding-left: 70%;
+    margin: 0;
+    list-style-type: none;
+}
+.navigation-item{
+    display: inline;
+
 }
 
-.nav-item a{
-    color: white;
+    .navigation-item a {
+        color: white;
+    }
+
+.nav-item.dropdown {
+    position: relative;
+    display: inline-block;
 }
+
+/* Dropdown menu styling */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: black; /* Same as navbar background */
+    white-space: nowrap; /* Prevent text wrapping */
+    padding: 10px 0; /* Use pixels for padding for consistency */
+    list-style-type: none; /* Removes bullet points */
+    z-index: 1;
+    right: 0; /* Align dropdown content to the right to prevent overflow */
+    box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: white;
+        padding: 16px 20px; /* Adequate padding */
+        text-decoration: none;
+        display: block;
+        width: 100%; /* Make links take up full width */
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+/* Ensure dropdown grows with content, but stays within the screen */
+.navigation-item.dropdown:hover .dropdown-content {
+    display: block;
+    right: 0; /* Ensure dropdown does not overflow to the right */
+    max-width: calc(100vw - 20px); /* Prevent overflow by limiting max width to the viewport */
+}
+
+/* Hover effect for dropdown links */
+.dropdown-content a:hover {
+    background-color: #444; /* Darker background on hover */
+}
+
+/* Ensure the dropdown trigger link (e.g., Home) does not change background on hover */
+.navigation-item.dropdown a {
+    background-color: transparent;
+}
+
