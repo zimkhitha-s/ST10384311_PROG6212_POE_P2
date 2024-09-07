@@ -1,5 +1,79 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿/*The CSS for the Claims Status Page*/
+
+body {
+    background-color: antiquewhite;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
+
+.claims-status-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f8ecd1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 3px solid black;
+}
+
+    .claims-status-container h2 {
+        text-align: center;
+        font-size: 32px;
+        color: black;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .claims-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .claims-table th, .claims-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid black;
+    }
+
+    .claims-table thead th {
+        background-color: black;
+        color: white;
+        font-weight: bold;
+    }
+
+    .claims-table tbody tr:nth-child(even) {
+        background-color: white;
+    }
+
+    .claims-table a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .claims-table a:hover {
+            text-decoration: underline;
+        }
+
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+    .status.pending {
+        background-color: #ffd700;
+        color: black;
+    }
+
+    .status.verified {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .status.approved {
+        background-color: #28a745;
+        color: white;
+    }
