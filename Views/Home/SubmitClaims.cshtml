@@ -8,5 +8,62 @@
 </head>
 
 <body>
+    <div class="form-container">
+        <h2>Submit Your Claim</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            <!-- Lecturer Information -->
+            <div class="form-group">
+                <label for="lecturerName">Lecturer Name</label>
+                <input type="text" id="lecturerName" name="lecturerName" placeholder="Enter your name" required />
+            </div>
+
+            <div class="form-group">
+                <label for="employeeId">Employee ID</label>
+                <input type="text" id="employeeId" name="employeeId" placeholder="Enter your Employee ID" required />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required />
+            </div>
+
+            <!-- Claim Details -->
+            <div class="form-group">
+                <label for="claimPeriod">Claim Period</label>
+                <input type="month" id="claimPeriod" name="claimPeriod" required />
+            </div>
+
+            <div class="form-group">
+                <label for="hoursWorked">Total Hours Worked</label>
+                <input type="number" id="hoursWorked" name="hoursWorked" placeholder="Enter total hours" required />
+            </div>
+
+            <div class="form-group">
+                <label for="hourlyRate">Hourly Rate</label>
+                <input type="number" id="hourlyRate" name="hourlyRate" placeholder="Enter your hourly rate" required />
+            </div>
+
+            <div class="form-group">
+                <label for="totalAmount">Total Amount Claimed</label>
+                <input type="number" id="totalAmount" name="totalAmount" placeholder="Calculated automatically" readonly />
+            </div>
+
+            <!-- Supporting Documents -->
+            <div class="form-group">
+                <label for="supportingDocs">Upload Supporting Documents</label>
+                <input type="file" id="supportingDocs" name="supportingDocs" />
+            </div>
+
+            <!-- Comments -->
+            <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea id="comments" name="comments" placeholder="Additional information about your claim"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">Submit Claim</button>
+        </form>
+    </div>
 </body>
 </html>

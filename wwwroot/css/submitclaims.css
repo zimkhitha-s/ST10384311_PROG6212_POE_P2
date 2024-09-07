@@ -5,3 +5,81 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.form-container {
+    background-color: #FDF1DF;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 4px solid black;
+}
+
+h2 {
+    text-align: center;
+    font-size: 32px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: black;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="month"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #fff;
+    color: black;
+    font-size: 16px;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+.btn-submit {
+    display: block;
+    margin: 20px auto;
+    padding: 12px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .btn-submit:hover {
+        background-color: #333;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+}
