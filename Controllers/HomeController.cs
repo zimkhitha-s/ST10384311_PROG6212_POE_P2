@@ -28,6 +28,11 @@ namespace ST10384311PROG6212POE.Controllers
             return View();
         }
 
+        public IActionResult ClaimsStatus()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

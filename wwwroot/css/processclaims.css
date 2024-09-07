@@ -5,3 +5,99 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.claims-container {
+    background-color: #FDF1DF;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 3px solid black;
+}
+
+h2 {
+    text-align: center;
+    font-size: 32px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.claims-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: white;
+}
+
+    .claims-table th,
+    .claims-table td {
+        padding: 12px 15px;
+        border: 1px solid black;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .claims-table th {
+        background-color: black;
+        color: white;
+        font-weight: bold;
+    }
+
+    .claims-table td {
+        color: black;
+    }
+
+a {
+    color: black;
+    text-decoration: underline;
+}
+
+.btn-verify {
+    background-color: #FFD700;
+    color: black;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px; /* Add space between Verify and Approve */
+    cursor: pointer;
+}
+
+.btn-approve {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.btn-verify {
+    background-color: #FFD700; /* Gold for verify */
+    color: black;
+}
+
+.btn-approve {
+    background-color: #28a745; /* Green for approve */
+    color: white;
+}
+
+.btn-verify:hover {
+    background-color: #FFC107; /* Darker gold on hover */
+}
+
+.btn-approve:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .claims-container {
+        width: 90%;
+    }
+
+    .claims-table {
+        font-size: 14px;
+    }
+}
