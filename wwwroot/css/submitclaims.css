@@ -60,6 +60,22 @@ input[type="file"] {
     padding: 5px;
 }
 
+select {
+    width: 100%;
+    padding: 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
+    select:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
 .btn-submit {
     display: block;
     margin: 20px auto;

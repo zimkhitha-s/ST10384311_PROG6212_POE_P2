@@ -5,48 +5,83 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/submitclaims.css"/>
+    <script src="~/js/submitclaims.js"></script>
 </head>
 
 <body>
     <div class="form-container">
         <h2>Submit Your Claim</h2>
 
+        <!--A form that allows the Lecturer to Submit Claims-->
         <form method="post" enctype="multipart/form-data">
             <!-- Lecturer Information -->
-            <div class="form-group">
-                <label for="lecturerName">Lecturer Name</label>
-                <input type="text" id="lecturerName" name="lecturerName" placeholder="Enter your name" required />
-            </div>
-
             <div class="form-group">
                 <label for="employeeId">Employee ID</label>
                 <input type="text" id="employeeId" name="employeeId" placeholder="Enter your Employee ID" required />
             </div>
 
             <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="lecturerName">Name</label>
+                <input type="text" id="lecturerName" name="lecturerName" placeholder="Enter your name" required />
+            </div>
+
+            <div class="form-group">
+                <label for="lecturerSurname">Surname</label>
+                <input type="text" id="lecturerSurname" name="lecturerSurname" placeholder="Enter your surname" required />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required />
             </div>
 
-            <!-- Claim Details -->
+            <!-- Lecturer Type Dropdown -->
+            <div class="form-group">
+                <label for="lecturerType">Lecturer Type</label>
+                <select id="lecturerType" name="lecturerType" required>
+                    <option value="">Choose an option</option>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                </select>
+            </div>
+
+            <!-- Claim Options (Dynamic based on Lecturer Type) -->
+            <div id="claimOptionsFullTime" class="form-group" style="display: none;">
+                <label for="claimTypeFullTime">Claim Type</label>
+                <select id="claimTypeFullTime" name="claimTypeFullTime">
+                    <option value="">Choose an option</option>
+                    <option value="research">Research</option>
+                    <option value="travel">Travel</option>
+                    <option value="conference">Conference</option>
+                </select>
+            </div>
+
+            <div id="claimOptionsPartTime" class="form-group" style="display: none;">
+                <label for="claimTypePartTime">Claim Type</label>
+                <select id="claimTypePartTime" name="claimTypePartTime">
+                    <option value="">Choose an option</option>
+                    <option value="lecture-hours">Lecture Hours</option>
+                    <option value="otherClaim">Other Claims</option>
+                </select>
+            </div>
+
+            <!-- Claim Period -->
             <div class="form-group">
                 <label for="claimPeriod">Claim Period</label>
                 <input type="month" id="claimPeriod" name="claimPeriod" required />
             </div>
 
-            <div class="form-group">
-                <label for="hoursWorked">Total Hours Worked</label>
-                <input type="number" id="hoursWorked" name="hoursWorked" placeholder="Enter total hours" required />
-            </div>
+            <!-- Total Hours Worked & Hourly Rate (initially hidden) -->
+            <div id="salaryFields" style="display: none;">
+                <div class="form-group">
+                    <label for="hoursWorked">Total Hours Worked</label>
+                    <input type="number" id="hoursWorked" name="hoursWorked" placeholder="Enter total hours" />
+                </div>
 
-            <div class="form-group">
-                <label for="hourlyRate">Hourly Rate</label>
-                <input type="number" id="hourlyRate" name="hourlyRate" placeholder="Enter your hourly rate" required />
-            </div>
-
-            <div class="form-group">
-                <label for="totalAmount">Total Amount Claimed</label>
-                <input type="number" id="totalAmount" name="totalAmount" placeholder="Calculated automatically" readonly />
+                <div class="form-group">
+                    <label for="hourlyRate">Hourly Rate</label>
+                    <input type="number" id="hourlyRate" name="hourlyRate" placeholder="Enter your hourly rate" />
+                </div>
             </div>
 
             <!-- Supporting Documents -->
@@ -67,3 +102,4 @@
     </div>
 </body>
 </html>
+<!---------------------------------------------------------------End Of File----------------------------------------------------->

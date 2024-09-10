@@ -43,10 +43,11 @@ body {
 .hero-btn {
     display: ruby;
     text-decoration: none;
-    color: white;
+    color: antiquewhite;
     border: 1px solid black;
     padding: 15px 25px;
     font-size: 16px;
+    font-weight: bold;
     background: black;
     position: relative;
     cursor: pointer;

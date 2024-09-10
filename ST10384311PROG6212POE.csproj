@@ -7,7 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\submitclaims.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\index.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\submitclaims.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\submitclaims.js" />
   </ItemGroup>
 
 </Project>
