@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Submit Claims";
 }
+@model ST10384311PROG6212POE.Models.LecturerModel
+
 <!Doctype html>
 <html>
 <head>
@@ -16,29 +18,29 @@
         <form method="post" enctype="multipart/form-data">
             <!-- Lecturer Information -->
             <div class="form-group">
-                <label for="employeeId">Employee ID</label>
-                <input type="text" id="employeeId" name="employeeId" placeholder="Enter your Employee ID" required />
+                <label for="lectureId">Lecturer ID</label>
+                <input type="text" id="lecturerId" name="LecturerId" placeholder="Enter your Lecturer ID" required />
             </div>
 
             <div class="form-group">
                 <label for="lecturerName">Name</label>
-                <input type="text" id="lecturerName" name="lecturerName" placeholder="Enter your name" required />
+                <input type="text" id="lecturerName" name="EmployeeName" placeholder="Enter your name" required />
             </div>
 
             <div class="form-group">
                 <label for="lecturerSurname">Surname</label>
-                <input type="text" id="lecturerSurname" name="lecturerSurname" placeholder="Enter your surname" required />
+                <input type="text" id="lecturerSurname" name="EmployeeSurname" placeholder="Enter your surname" required />
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required />
+                <input type="email" id="email" name="EmployeeEmail" placeholder="Enter your email" required />
             </div>
 
             <!-- Lecturer Type Dropdown -->
             <div class="form-group">
                 <label for="lecturerType">Lecturer Type</label>
-                <select id="lecturerType" name="lecturerType" required>
+                <select id="lecturerType" name="LecturerType" required>
                     <option value="">Choose an option</option>
                     <option value="full-time">Full-time</option>
                     <option value="part-time">Part-time</option>
@@ -74,20 +76,20 @@
             <!-- Total Hours Worked & Hourly Rate (initially hidden) -->
             <div id="salaryFields" style="display: none;">
                 <div class="form-group">
-                    <label for="hoursWorked">Total Hours Worked</label>
-                    <input type="number" id="hoursWorked" name="hoursWorked" placeholder="Enter total hours" />
+                    <label for="lecturerHoursWorked">Total Hours Worked</label>
+                    <input type="number" id="lecturerHoursWorked" name="LecturerHoursWorked" placeholder="Enter total hours" />
                 </div>
 
                 <div class="form-group">
-                    <label for="hourlyRate">Hourly Rate</label>
-                    <input type="number" id="hourlyRate" name="hourlyRate" placeholder="Enter your hourly rate" />
+                    <label for="lecturerHourlyRate">Hourly Rate</label>
+                    <input type="number" id="lecturerHourlyRate" name="LecturerHourlyRate" placeholder="Enter your hourly rate" />
                 </div>
             </div>
 
             <!-- Supporting Documents -->
             <div class="form-group">
-                <label for="supportingDocs">Upload Supporting Documents</label>
-                <input type="file" id="supportingDocs" name="supportingDocs" />
+                <label for="lecturerSupportingDocs">Upload Supporting Documents</label>
+                <input type="file" id="lecturerSupportingDocs" name="LecturerSupportingDocs" />
             </div>
 
             <!-- Comments -->
