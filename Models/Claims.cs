@@ -1,16 +1,22 @@
-﻿namespace ST10384311PROG6212POE.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ST10384311PROG6212POE.Models
 {
     public class Claims
     {
         // The Properties of the Claims
+        [Key]
         public int ClaimId { get; set; }  // Primary Key
-        public string LecturerName { get; set; }  // For now, store lecturer name directly
-        public string LecturerEmail { get; set; }  // Similarly, store the lecturer's email
+        public string LecturerName { get; set; }
+        public string LecturerEmail { get; set; }
 
         public string ClaimPeriod { get; set; }
         public int TotalHours { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal TotalAmount { get; set; }
         public string SupportingDocsUrl { get; set; }
-        public string Status { get; set; }  // e.g., Pending, Approved
+        public string Status { get; set; }
     }
 }
+//-------------------------------------------------------------------------------------------End Of File--------------------------------------------------------------------//

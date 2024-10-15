@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ST10384311PROG6212POE.Models;
 
-namespace ST10384311PROG6212POE.Database
+namespace ST10384311PROG6212POE.Data
 {
-    public class CMCSApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        // The Constructor Method for the CMCSApplicationDbContext Class
-        public CMCSApplicationDbContext(DbContextOptions<CMCSApplicationDbContext> options) : base(options)
+        // The Constructor Method for the ApplicationDbContext Class
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
-        // The DbSet Properties for the CMCSApplicationDbContext Class
+        // The DbSet Properties for the ApplicationDbContext Class
 
         // The DbSet Property for the Claims Model
         public DbSet<Claims> Claims { get; set; }
@@ -28,4 +28,3 @@ namespace ST10384311PROG6212POE.Database
         public DbSet<ProgrammeCoordinator> ProgrammeCoordinator { get; set; }*/
     }
 }
-//-------------------------------------------------------------------------------------------End Of File--------------------------------------------------------------------//

@@ -5,7 +5,7 @@ namespace ST10384311PROG6212POE.Controllers
 {
     public class ClaimsController : Controller
     {
-        private readonly IClaimService _claimService;
+        /*private readonly IClaimService _claimService;
 
         // Injecting the service that handles claim-related logic
         public ClaimsController(IClaimService claimService)
@@ -51,6 +51,6 @@ namespace ST10384311PROG6212POE.Controllers
 
             // Pass the claims to the view for display
             return View(claims);
-        }
+        }*/
     }
 }
