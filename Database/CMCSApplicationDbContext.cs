@@ -12,16 +12,20 @@ namespace ST10384311PROG6212POE.Database
 
         // The DbSet Properties for the CMCSApplicationDbContext Class
 
-        // The DbSet Property for the EmployeeModel Class
-        public DbSet<EmployeeModel> EmployeeModel { get; set; }
+        // The DbSet Property for the Claims Model
+        public DbSet<Claims> Claims { get; set; }
 
-        // The DbSet Property for the AcademicManagerModel Class
-        public DbSet<LecturerModel> LecturerModel { get; set; }
+        /*// The DbSet Property for the Employee Model
+        public DbSet<Employee> Employee{ get; set; }
 
-        // The DbSet Property for the PartTimeLectureModel Class
-        public DbSet<PartTimeLectureModel> PartTimeLectureModel { get; set; }
+        // The DbSet Property for the Lecturer Model
+        public DbSet<Lecturer> Lecturer{ get; set; }
 
-        // The DbSet Property for the FullTimeLectureModel Class
-        public DbSet<FullTimeLectureModel> FullTimeLectureModel { get; set; }
+        // The DbSet Property for the AcademicManager Model
+        public DbSet<AcademicManager> AcademicManager { get; set; }
+
+        // The DbSet Property for the Programme Coordinator Model
+        public DbSet<ProgrammeCoordinator> ProgrammeCoordinator { get; set; }*/
     }
 }
+//-------------------------------------------------------------------------------------------End Of File--------------------------------------------------------------------//
