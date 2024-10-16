@@ -112,5 +112,4 @@ namespace ST10384311PROG6212POE.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
-
 }
