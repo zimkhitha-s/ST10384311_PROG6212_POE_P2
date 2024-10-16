@@ -33,15 +33,19 @@ namespace ST10384311PROG6212POE.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitClaims(Claims claim, IFormFile supportingDocs)
         {
+            const decimal hourlyRate = 200;  // Fixed hourly rate for calculation
+
             if (ModelState.IsValid)
             {
+                // Calculate the total amount based on the number of hours worked
+                claim.TotalAmount = claim.TotalHours * hourlyRate;
+
                 if (supportingDocs != null && supportingDocs.Length > 0)
                 {
                     // Save the uploaded file to wwwroot/uploads
                     var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
                     var fileName = Path.GetFileName(supportingDocs.FileName);  // Get the original file name
 
-                    // Ensure the uploads folder exists
                     if (!Directory.Exists(uploadsPath))
                     {
                         Directory.CreateDirectory(uploadsPath);
@@ -59,7 +63,7 @@ namespace ST10384311PROG6212POE.Controllers
                     claim.SupportingDocsUrl = "/uploads/" + fileName;
                 }
 
-                // Automatically set the initial claim status to "Pending"
+                // Set the initial claim status to "Pending"
                 claim.Status = "Pending";
 
                 // Save the claim to the database
@@ -73,19 +77,21 @@ namespace ST10384311PROG6212POE.Controllers
             return View(claim); // Return the form with validation errors if the model is invalid
         }
 
+
         [HttpPost]
         public async Task<IActionResult> UpdateClaimStatus(int claimId, string newStatus)
         {
             var claim = await _context.Claims.FindAsync(claimId);
             if (claim != null)
             {
-                claim.Status = newStatus;
+                claim.Status = newStatus; // Set the new status based on the button clicked
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ProcessClaims");
             }
 
             return NotFound();
         }
+
 
 
         // GET: ProcessClaims (Displays pending claims for administrators)

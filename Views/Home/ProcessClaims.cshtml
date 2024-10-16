@@ -7,12 +7,12 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/processclaims.css" />
+    <script src="~/js/processclaims.js"></script>
 </head>
 <body>
     <div class="claims-container">
         <h2>Pending Claims for Approval</h2>
 
-        <!-- A table displaying the submitted claims -->
         <table class="claims-table">
             <thead>
                 <tr>
@@ -32,16 +32,19 @@
                     foreach (var claim in Model)
                     {
                         <tr>
-                            <td>@claim.LecturerName</td> <!-- Added LecturerName -->
-                            <td>@claim.LecturerEmail</td> <!-- Added LecturerEmail -->
+                            <td>@claim.LecturerName</td>
+                            <td>@claim.LecturerEmail</td>
                             <td>@claim.ClaimPeriod</td>
                             <td>@claim.TotalHours</td>
                             <td>@claim.TotalAmount</td>
                             <td><a href="@claim.SupportingDocsUrl">View Document</a></td>
-                            <td><span class="status @claim.Status.ToLower()">@claim.Status</span></td>
+                            <td>@claim.Status</td>
                             <td>
-                                <button class="btn-verify">Verify</button>
-                                <button class="btn-approve">Approve</button>
+                                <form asp-action="UpdateClaimStatus" method="post">
+                                    <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                    <button type="submit" name="newStatus" value="Approved" class="btn-approve">Approve</button>
+                                    <button type="submit" name="newStatus" value="Rejected" class="btn-reject">Reject</button>
+                                </form>
                             </td>
                         </tr>
                     }
@@ -49,7 +52,7 @@
                 else
                 {
                     <tr>
-                        <td colspan="8">No claims available.</td>
+                        <td colspan="8">No pending claims.</td>
                     </tr>
                 }
             </tbody>

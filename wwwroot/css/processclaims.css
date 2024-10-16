@@ -1,4 +1,4 @@
-﻿/*The css for the Process Claims Page*/
+﻿/* The css for the Process Claims Page */
 body {
     background-color: antiquewhite;
     font-family: Arial, sans-serif;
@@ -53,43 +53,69 @@ a {
     text-decoration: underline;
 }
 
-.btn-verify {
-    background-color: #FFD700;
-    color: black;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px; /* Add space between Verify and Approve */
-    cursor: pointer;
-}
-
-.btn-approve {
-    background-color: #28a745;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-
+/* Button for verifying claims */
 .btn-verify {
     background-color: #FFD700; /* Gold for verify */
     color: black;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px; /* Add space between buttons */
+    cursor: pointer;
 }
 
+    .btn-verify:hover {
+        background-color: #FFC107; /* Darker gold on hover */
+    }
+
+/* Button for approving claims */
 .btn-approve {
     background-color: #28a745; /* Green for approve */
     color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.btn-verify:hover {
-    background-color: #FFC107; /* Darker gold on hover */
+    .btn-approve:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+/* Button for rejecting claims */
+.btn-reject {
+    background-color: #dc3545; /* Red for reject */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.btn-approve:hover {
-    background-color: #218838; /* Darker green on hover */
+    .btn-reject:hover {
+        background-color: #c82333; /* Darker red on hover */
+    }
+
+/* Status coloring */
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
 }
+
+    .status.pending {
+        background-color: #FFD700; /* Yellow for pending */
+        color: black;
+    }
+
+    .status.approved {
+        background-color: #28a745; /* Green for approved */
+    }
+
+    .status.rejected {
+        background-color: #dc3545; /* Red for rejected */
+    }
 
 /* Responsive */
 @media (max-width: 768px) {
