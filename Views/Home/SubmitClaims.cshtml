@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Submit Claims";
 }
-@model ST10384311PROG6212POE.Models.Lecturer
+@model ST10384311PROG6212POE.Models.Entities.Claims
 
 <!Doctype html>
 <html>
@@ -15,92 +15,40 @@
         <h2>Submit Your Claim</h2>
 
         <!--A form that allows the Lecturer to Submit Claims-->
-        <form method="post" enctype="multipart/form-data">
+        <form asp-controller="Home" asp-action="SubmitClaims" method="post" enctype="multipart/form-data">
             <!-- Lecturer Information -->
             <div class="form-group">
-                <label for="lectureId">Lecturer ID</label>
-                <input type="text" id="lecturerId" name="EmployeeId" placeholder="Enter your Lecturer ID" required />
-            </div>
-
-            <div class="form-group">
                 <label for="lecturerName">Name</label>
-                <input type="text" id="lecturerName" name="EmployeeName" placeholder="Enter your name" required />
+                <input type="text" id="lecturerName" name="LecturerName" placeholder="Enter your name" required />
             </div>
 
             <div class="form-group">
-                <label for="lecturerSurname">Surname</label>
-                <input type="text" id="lecturerSurname" name="EmployeeSurname" placeholder="Enter your surname" required />
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="EmployeeEmail" placeholder="Enter your email" required />
-            </div>
-
-            <!-- Lecturer Type Dropdown -->
-            <div class="form-group">
-                <label for="lecturerType">Lecturer Type</label>
-                <select id="lecturerType" name="LecturerType" required>
-                    <option value="">Choose an option</option>
-                    <option value="full-time">Full-time</option>
-                    <option value="part-time">Part-time</option>
-                </select>
-            </div>
-
-            <!-- Claim Options (Dynamic based on Lecturer Type) -->
-            <div id="claimOptionsFullTime" class="form-group" style="display: none;">
-                <label for="claimTypeFullTime">Claim Type</label>
-                <select id="claimTypeFullTime" name="claimTypeFullTime">
-                    <option value="">Choose an option</option>
-                    <option value="research">Research</option>
-                    <option value="travel">Travel</option>
-                    <option value="conference">Conference</option>
-                </select>
-            </div>
-
-            <div id="claimOptionsPartTime" class="form-group" style="display: none;">
-                <label for="claimTypePartTime">Claim Type</label>
-                <select id="claimTypePartTime" name="claimTypePartTime">
-                    <option value="">Choose an option</option>
-                    <option value="lecture-hours">Lecture Hours</option>
-                    <option value="otherClaim">Other Claims</option>
-                </select>
+                <label for="lecturerEmail">Email</label>
+                <input type="email" id="lecturerEmail" name="LecturerEmail" placeholder="Enter your email" required />
             </div>
 
             <!-- Claim Period -->
             <div class="form-group">
                 <label for="claimPeriod">Claim Period</label>
-                <input type="month" id="claimPeriod" name="claimPeriod" required />
+                <input type="month" id="claimPeriod" name="ClaimPeriod" required />
             </div>
 
-            <!-- Total Hours Worked & Hourly Rate (initially hidden) -->
-            <div id="salaryFields" style="display: none;">
-                <div class="form-group">
-                    <label for="lecturerHoursWorked">Total Hours Worked</label>
-                    <input type="number" id="lecturerHoursWorked" name="LecturerHoursWorked" placeholder="Enter total hours" />
-                </div>
-
-                <div class="form-group">
-                    <label for="lecturerHourlyRate">Hourly Rate</label>
-                    <input type="number" id="lecturerHourlyRate" name="LecturerHourlyRate" placeholder="Enter your hourly rate" />
-                </div>
+            <!-- Total Hours Worked -->
+            <div class="form-group">
+                <label for="totalHours">Total Hours Worked</label>
+                <input type="number" id="totalHours" name="TotalHours" placeholder="Enter total hours" />
             </div>
 
             <!-- Supporting Documents -->
             <div class="form-group">
-                <label for="lecturerSupportingDocs">Upload Supporting Documents</label>
-                <input type="file" id="lecturerSupportingDocs" name="LecturerSupportingDocs" />
-            </div>
-
-            <!-- Comments -->
-            <div class="form-group">
-                <label for="comments">Comments</label>
-                <textarea id="comments" name="comments" placeholder="Additional information about your claim"></textarea>
+                <label for="supportingDocs">Upload Supporting Documents</label>
+                <input type="file" id="supportingDocs" name="supportingDocs" />
             </div>
 
             <!-- Submit Button -->
             <button type="submit" class="btn-submit">Submit Claim</button>
         </form>
+
     </div>
 </body>
 </html>

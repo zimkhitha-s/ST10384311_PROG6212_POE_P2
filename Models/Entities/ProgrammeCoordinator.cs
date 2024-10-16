@@ -1,4 +1,4 @@
-﻿namespace ST10384311PROG6212POE.Models
+﻿namespace ST10384311PROG6212POE.Models.Entities
 {
     public class ProgrammeCoordinator : Employee
     {

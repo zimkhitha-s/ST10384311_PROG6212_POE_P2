@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ST10384311PROG6212POE.Models
+namespace ST10384311PROG6212POE.Models.Entities
 {
     public class Claims
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ST10384311PROG6212POE.Models;
+using ST10384311PROG6212POE.Models.Entities;
 
 namespace ST10384311PROG6212POE.Data
 {
