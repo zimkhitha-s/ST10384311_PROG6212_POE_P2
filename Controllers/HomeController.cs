@@ -74,8 +74,10 @@ namespace ST10384311PROG6212POE.Controllers
                 return RedirectToAction("ClaimsStatus");
             }
 
-            return View(claim); // Return the form with validation errors if the model is invalid
+            // Return the form with validation errors if the model is invalid
+            return View(claim);
         }
+
 
 
         [HttpPost]

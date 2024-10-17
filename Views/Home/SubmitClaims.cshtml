@@ -5,51 +5,62 @@
 
 <!Doctype html>
 <html>
-<head>
-    <link rel="stylesheet" href="~/css/submitclaims.css"/>
-    <script src="~/js/submitclaims.js"></script>
-</head>
+    <head>
+        <link rel="stylesheet" href="~/css/submitclaims.css"/>
+        <script src="~/js/submitclaims.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.3/jquery.validate.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.1.0/jquery.validate.unobtrusive.min.js"></script>
+    </head>
 
 <body>
     <div class="form-container">
         <h2>Submit Your Claim</h2>
 
-        <!--A form that allows the Lecturer to Submit Claims-->
-        <form asp-controller="Home" asp-action="SubmitClaims" method="post" enctype="multipart/form-data">
+        <!-- A form that allows the Lecturer to Submit Claims -->
+        <form asp-controller="Home" asp-action="SubmitClaims" method="post" enctype="multipart/form-data" novalidate>
+            <!-- Validation summary to display any server-side validation errors -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <!-- Lecturer Information -->
             <div class="form-group">
                 <label for="lecturerName">Name</label>
-                <input type="text" id="lecturerName" name="LecturerName" placeholder="Enter your name" required />
+                <input type="text" id="lecturerName" name="LecturerName" placeholder="Enter your name" class="form-control" required />
+                <span asp-validation-for="LecturerName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label for="lecturerEmail">Email</label>
-                <input type="email" id="lecturerEmail" name="LecturerEmail" placeholder="Enter your email" required />
+                <input type="email" id="lecturerEmail" name="LecturerEmail" placeholder="Enter your email" class="form-control" required />
+                <span asp-validation-for="LecturerEmail" class="text-danger"></span>
             </div>
 
             <!-- Claim Period -->
             <div class="form-group">
                 <label for="claimPeriod">Claim Period</label>
-                <input type="month" id="claimPeriod" name="ClaimPeriod" required />
+                <input type="month" id="claimPeriod" name="ClaimPeriod" class="form-control" required />
+                <span asp-validation-for="ClaimPeriod" class="text-danger"></span>
             </div>
 
             <!-- Total Hours Worked -->
             <div class="form-group">
                 <label for="totalHours">Total Hours Worked</label>
-                <input type="number" id="totalHours" name="TotalHours" placeholder="Enter total hours" />
+                <input type="number" id="totalHours" name="TotalHours" placeholder="Enter total hours" class="form-control" min="1" required />
+                <span asp-validation-for="TotalHours" class="text-danger"></span>
             </div>
 
             <!-- Supporting Documents -->
             <div class="form-group">
                 <label for="supportingDocs">Upload Supporting Documents</label>
-                <input type="file" id="supportingDocs" name="supportingDocs" />
+                <input type="file" id="supportingDocs" name="supportingDocs" class="form-control" />
+                <span asp-validation-for="SupportingDocsUrl" class="text-danger"></span>
             </div>
 
             <!-- Submit Button -->
             <button type="submit" class="btn-submit">Submit Claim</button>
         </form>
-
     </div>
 </body>
+
 </html>
 <!---------------------------------------------------------------End Of File----------------------------------------------------->
