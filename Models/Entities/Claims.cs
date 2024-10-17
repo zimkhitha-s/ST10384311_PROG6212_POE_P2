@@ -5,7 +5,7 @@ namespace ST10384311PROG6212POE.Models.Entities
 {
     public class Claims
     {
-        // The Properties of the ClaimsZ
+        // The Properties of the Claims
         [Key]
         public int ClaimId { get; set; }  // Primary Key
 
