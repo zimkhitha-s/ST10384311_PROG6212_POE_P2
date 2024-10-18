@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ST10384311PROG6212POE.Data;
 using ST10384311PROG6212POE.Models;
+using ST10384311PROG6212POE.Data;
+using Microsoft.EntityFrameworkCore;
 using ST10384311PROG6212POE.Models.Entities;
 using System.Diagnostics;
 
@@ -9,43 +9,48 @@ namespace ST10384311PROG6212POE.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;  // Inject the database context
+        private readonly ApplicationDbContext _context;
         private readonly ILogger<HomeController> _logger;
 
+        // Constructor to initialize the database context and logger
         public HomeController(ApplicationDbContext context, ILogger<HomeController> logger)
         {
             _context = context;
             _logger = logger;
         }
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to return the Index view
         public IActionResult Index()
         {
             return View();
         }
 
-        // GET: SubmitClaims (Displays the form for submitting a claim)
+        // Action method to return the SubmitClaims view (GET request)
         public IActionResult SubmitClaims()
         {
             return View();
         }
-
-        // POST: SubmitClaims (Handles claim submission)
+//------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to handle the submission of claims (POST request)
         [HttpPost]
         public async Task<IActionResult> SubmitClaims(Claims claim, IFormFile supportingDocs)
         {
-            const decimal hourlyRate = 200;  // Fixed hourly rate for calculation
+            const decimal hourlyRate = 200;
 
+            // Check if the model state is valid
             if (ModelState.IsValid)
             {
-                // Calculate the total amount based on the number of hours worked
+                // Calculate the total amount based on the total hours and hourly rate
                 claim.TotalAmount = claim.TotalHours * hourlyRate;
 
+                // Check if supporting documents are provided
                 if (supportingDocs != null && supportingDocs.Length > 0)
                 {
-                    // Save the uploaded file to wwwroot/uploads
+                    // Define the path to save the uploaded files
                     var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-                    var fileName = Path.GetFileName(supportingDocs.FileName);  // Get the original file name
+                    var fileName = Path.GetFileName(supportingDocs.FileName);
 
+                    // Create the directory if it doesn't exist
                     if (!Directory.Exists(uploadsPath))
                     {
                         Directory.CreateDirectory(uploadsPath);
@@ -53,67 +58,66 @@ namespace ST10384311PROG6212POE.Controllers
 
                     var filePath = Path.Combine(uploadsPath, fileName);
 
-                    // Save the file asynchronously
+                    // Save the uploaded file to the specified path
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await supportingDocs.CopyToAsync(stream);
                     }
 
-                    // Store the file path in the database (relative URL)
+                    // Set the URL of the supporting documents
                     claim.SupportingDocsUrl = "/uploads/" + fileName;
                 }
 
-                // Set the initial claim status to "Pending"
+                // Set the status of the claim to "Pending"
                 claim.Status = "Pending";
-
-                // Save the claim to the database
                 _context.Claims.Add(claim);
                 await _context.SaveChangesAsync();
 
-                // Redirect to Claims Status after submitting
+                // Redirect to the ClaimsStatus action
                 return RedirectToAction("ClaimsStatus");
             }
 
-            // Return the form with validation errors if the model is invalid
+            // Return the view with the claim model if the model state is not valid
             return View(claim);
         }
-
-
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to update the status of a claim (POST request)
         [HttpPost]
         public async Task<IActionResult> UpdateClaimStatus(int claimId, string newStatus)
         {
+            // Find the claim by its ID
             var claim = await _context.Claims.FindAsync(claimId);
             if (claim != null)
             {
-                claim.Status = newStatus; // Set the new status based on the button clicked
+                // Update the status of the claim
+                claim.Status = newStatus;
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ProcessClaims");
             }
 
+            // Return a 404 Not Found result if the claim is not found
             return NotFound();
         }
-
-
-
-        // GET: ProcessClaims (Displays pending claims for administrators)
+//------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to return the ProcessClaims view with pending claims
         public async Task<IActionResult> ProcessClaims()
         {
-            // Fetch only claims that are still pending asynchronously
+            // Get the list of pending claims from the database
             var pendingClaims = await _context.Claims
                 .Where(c => c.Status == "Pending")
                 .ToListAsync();
-            return View(pendingClaims);  // Pass the list of claims to the view
+            return View(pendingClaims);
         }
-
-        // GET: ClaimsStatus (Displays claims submitted by the lecturer)
+//------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to return the ClaimsStatus view with all claims
         public async Task<IActionResult> ClaimsStatus()
         {
-            // Retrieve all claims asynchronously (in a real app, you'd filter claims by the logged-in lecturer's ID)
+            // Get the list of all claims from the database
             var claims = await _context.Claims.ToListAsync();
-            return View(claims);  // Pass the claims to the view
+            return View(claims);
         }
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to return the Error view with error details
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -121,3 +125,4 @@ namespace ST10384311PROG6212POE.Controllers
         }
     }
 }
+//-------------------------------------------------------------------------------------------End Of File--------------------------------------------------------------------//

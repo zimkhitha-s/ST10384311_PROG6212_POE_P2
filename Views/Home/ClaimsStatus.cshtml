@@ -15,6 +15,7 @@
         <!-- Table displaying the lecturer's submitted claims -->
         <table class="claims-table">
             <thead>
+                <!--The Table Headers-->
                 <tr>
                     <th>Claim Period</th>
                     <th>Total Hours</th>
@@ -24,8 +25,10 @@
                 </tr>
             </thead>
             <tbody>
+                <!--The Table Body-->
                 @if (Model != null && Model.Any())
                 {
+                    <!--Loop through the claims and display them in the table-->
                     foreach (var claim in Model)
                     {
                         <tr>
