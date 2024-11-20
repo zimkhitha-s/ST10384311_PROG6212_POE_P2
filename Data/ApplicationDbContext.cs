@@ -12,8 +12,26 @@ namespace ST10384311PROG6212POE.Data
 
         // The DbSet Properties for the ApplicationDbContext Class
 
+        // The DbSet Property for the Employee Model
+        public DbSet<Employee> Employees { get; set; }
+
+        // The DbSet Property for the Lecturer Model
+        public DbSet<Lecturer> Lecturers { get; set; }
+
         // The DbSet Property for the Claims Model
         public DbSet<Claims> Claims { get; set; }
+
+        // The OnModelCreating Method for the ApplicationDbContext Class
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure Lecturer-Claims Relationship
+            modelBuilder.Entity<Lecturer>()
+                .HasMany(l => l.Claims)
+                .WithOne(c => c.Lecturer)
+                .HasForeignKey(c => c.LecturerId);
+        }
     }
 }
 //-------------------------------------------------------------------------------------------End Of File--------------------------------------------------------------------//
