@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+@model LoginViewModel
+
+<form asp-action="Login" method="post">
+    <div>
+        <label>Email</label>
+        <input type="email" asp-for="Email" />
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" asp-for="Password" />
+    </div>
+    <div>
+        <input type="checkbox" asp-for="RememberMe" />
+        <label>Remember Me</label>
+    </div>
+    <button type="submit">Login</button>
+</form>

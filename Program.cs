@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ST10384311PROG6212POE.Data;
 
@@ -13,7 +14,16 @@ namespace ST10384311PROG6212POE
             builder.Services.AddControllersWithViews();
 
             // Add the Database Context to the Services
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Add Identity services (for user authentication and authorization)
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Add MVC and Identity pages
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -21,7 +31,6 @@ namespace ST10384311PROG6212POE
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -30,7 +39,8 @@ namespace ST10384311PROG6212POE
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();  // Authentication middleware
+            app.UseAuthorization();   // Authorization middleware
 
             app.MapControllerRoute(
                 name: "default",
@@ -39,4 +49,5 @@ namespace ST10384311PROG6212POE
             app.Run();
         }
     }
+
 }
