@@ -3,12 +3,13 @@
 }
 <!Doctype html>
 <html>
-    <head>
-        <link rel="stylesheet" href="~/css/index.css"/>
-    </head>
-    <!--A Welcoming Message to set the Atmosphere of the Website-->
-    <body>
-        <div>
+<head>
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section: Welcoming Body -->
+        <div class="welcoming-body">
             <div class="heading">
                 <h1>Welcome to the</h1>
             </div>
@@ -31,6 +32,38 @@
                 <a asp-controller="Home" asp-action="SubmitClaims" class="hero-btn">Submit Claims</a>
             </div>
         </div>
-    </body>
+
+        <!-- Right Section: Login Form -->
+        <div class="login-form">
+            <h2>Login</h2>
+            <form asp-controller="Account" asp-action="Login" method="post">
+                <div>
+                    <label for="role">Select Your Role:</label>
+                    <select id="role" name="role" required>
+                        <option value="">-- Select a Role --</option>
+                        <option value="lecturer">Lecturer</option>
+                        <option value="administrator">Administrator</option>
+                        <option value="hr">HR</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required />
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="login-btn">Login</button>
+                </div>
+            </form>
+            <div class="create-account">
+                <p>Don't have an account? <a href="/Account/Register" class="create-account-link">Create an Account</a>.</p>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
+
 <!---------------------------------------------------------------End Of File----------------------------------------------------->
