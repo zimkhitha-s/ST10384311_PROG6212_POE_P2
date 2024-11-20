@@ -33,6 +33,8 @@ namespace ST10384311PROG6212POE.Models.Entities
         [Column(TypeName = "decimal(18, 2)")]
         public decimal TotalAmount { get; set; }
 
+        public int HourlyRate { get; set; }
+
         // The Supporting Documents URL Variable for the Lecturer's Supporting Documents 
         public string? SupportingDocsUrl { get; set; }
 

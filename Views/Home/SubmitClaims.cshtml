@@ -7,7 +7,6 @@
 <html>
     <head>
         <link rel="stylesheet" href="~/css/submitclaims.css"/>
-        <script src="~/js/submitclaims.js"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.3/jquery.validate.min.js"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.1.0/jquery.validate.unobtrusive.min.js"></script>
@@ -50,6 +49,13 @@
                 <span asp-validation-for="TotalHours" class="text-danger"></span>
             </div>
 
+            <!-- Hourly Rate -->
+            <div class="form-group">
+                <label for="horlyRate">Hourly Rate</label>
+                <input type="number" id="horlyRate" name="HourlyRate" placeholder="Enter hourly rates" class="form-control" min="1" required />
+                <span asp-validation-for="HourlyRate" class="text-danger"></span>
+            </div>
+
             <!-- Supporting Documents -->
             <div class="form-group">
                 <label for="supportingDocs">Upload Supporting Documents</label>
@@ -62,6 +68,5 @@
         </form>
     </div>
 </body>
-
 </html>
 <!---------------------------------------------------------------End Of File----------------------------------------------------->
