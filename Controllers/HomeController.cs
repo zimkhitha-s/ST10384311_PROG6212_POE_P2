@@ -30,7 +30,12 @@ namespace ST10384311PROG6212POE.Controllers
         {
             return View();
         }
-//------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+        public IActionResult CreateAccount()
+        {
+            return View();
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
         // Action method to handle the submission of claims (POST request)
         [HttpPost]
         public async Task<IActionResult> SubmitClaims(Claims claim, IFormFile supportingDocs)

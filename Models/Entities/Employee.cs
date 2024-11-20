@@ -7,6 +7,7 @@
         public string EmployeeName { get; set; }
         public string EmployeeSurname { get; set; }
         public string EmployeeEmail { get; set; }
+        public string EmployeeRole{ get; set; }
         public string EmployeePhoneNumber { get; set; }
         public string EmployeeAddress { get; set; }
     }
