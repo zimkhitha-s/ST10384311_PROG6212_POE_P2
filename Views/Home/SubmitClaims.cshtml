@@ -22,18 +22,19 @@
             <!-- Validation summary to display any server-side validation errors -->
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <!-- Lecturer Information -->
+            <!--Lecturer Name -->
             <div class="form-group">
-                <label for="lecturerName">Name</label>
-                <input type="text" id="lecturerName" name="LecturerName" placeholder="Enter your name" class="form-control" required />
+                <label for="lecturername">Name</label>
+                <input type="text" id="lecturername" name="LecturerName" class="form-control" required />
                 <span asp-validation-for="LecturerName" class="text-danger"></span>
             </div>
 
+            <!--Lecturer Email -->
             <div class="form-group">
-                <label for="lecturerEmail">Email</label>
-                <input type="email" id="lecturerEmail" name="LecturerEmail" placeholder="Enter your email" class="form-control" required />
+                <label for="lectureremail">Email</label>
+                <input type="email" id="lectureremail" name="LecturerEmail" class="form-control" required />
                 <span asp-validation-for="LecturerEmail" class="text-danger"></span>
-            </div>
+                </div>
 
             <!-- Claim Period -->
             <div class="form-group">
@@ -51,15 +52,15 @@
 
             <!-- Hourly Rate -->
             <div class="form-group">
-                <label for="horlyRate">Hourly Rate</label>
-                <input type="number" id="horlyRate" name="HourlyRate" placeholder="Enter hourly rates" class="form-control" min="1" required />
+                <label for="hourlyRate">Hourly Rate</label>
+                <input type="number" id="hourlyRate" name="HourlyRate" placeholder="Enter hourly rate" class="form-control" min="1" required />
                 <span asp-validation-for="HourlyRate" class="text-danger"></span>
             </div>
 
             <!-- Supporting Documents -->
             <div class="form-group">
                 <label for="supportingDocs">Upload Supporting Documents</label>
-                <input type="file" id="supportingDocs" name="supportingDocs" class="form-control" />
+                <input type="file" id="supportingDocs" name="SupportingDocs" class="form-control" />
                 <span asp-validation-for="SupportingDocsUrl" class="text-danger"></span>
             </div>
 
@@ -67,6 +68,7 @@
             <button type="submit" class="btn-submit">Submit Claim</button>
         </form>
     </div>
+
 </body>
 </html>
 <!---------------------------------------------------------------End Of File----------------------------------------------------->

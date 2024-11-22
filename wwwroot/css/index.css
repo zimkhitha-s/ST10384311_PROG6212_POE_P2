@@ -10,7 +10,7 @@ body {
 
 /* Container: Flexbox for Layout */
 .container {
-    display: flex; /* Make the container a flex container */
+    display: grid; /* Make the container a flex container */
     justify-content: space-between; /* Distribute space between the sections */
     align-items: center; /* Align items to the top */
     padding-top: 50px;
@@ -72,85 +72,4 @@ body {
         background: transparent;
         color: black;
         transition: 0.5s;
-    }
-
-/* Right Section (Login Form) */
-.login-form {
-    flex: 0 0 35%; /* Take up 35% of the space */
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-    .login-form h2 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .login-form select {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        font-size: 14px;
-    }
-
-    .login-form label {
-        display: block;
-        font-size: 14px;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    .login-form input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        font-size: 14px;
-    }
-
-    .login-form .button-container {
-        display: flex;
-        justify-content: center; /* Center horizontally */
-        margin-top: 20px; /* Add some space above the button */
-    }
-
-    .login-form .login-btn {
-        width: 30%;
-        padding: 10px;
-        background: black;
-        color: antiquewhite;
-        border: none;
-        border-radius: 3px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-        .login-form .login-btn:hover {
-            background: transparent;
-            color: black;
-            border: 1px solid black;
-            transition: 0.5s;
-        }
-
-.create-account {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.create-account-link {
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-    .create-account-link:hover {
-        color: darkblue;
     }

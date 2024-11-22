@@ -2,20 +2,37 @@
     ViewData["Title"] = "Login";
 }
 
-@model LoginViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/login.css" /> <!-- Updated to reference login.css -->
+</head>
 
-<form asp-action="Login" method="post">
-    <div>
-        <label>Email</label>
-        <input type="email" asp-for="Email" />
+<body>
+    <div class="container">
+        <!-- Flex container to center the form -->
+        <div class="login-form">
+            <h2>Login</h2>
+            <form asp-controller="Home" asp-action="LoginUserIn" method="post">
+                <!-- Email input -->
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <!-- Password input -->
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required />
+                </div>
+                <!-- Submit button -->
+                <div class="form-group">
+                    <button class="login-btn" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label>Password</label>
-        <input type="password" asp-for="Password" />
-    </div>
-    <div>
-        <input type="checkbox" asp-for="RememberMe" />
-        <label>Remember Me</label>
-    </div>
-    <button type="submit">Login</button>
-</form>
+</body>
+</html>

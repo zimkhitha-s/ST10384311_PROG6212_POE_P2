@@ -6,68 +6,141 @@ using ST10384311PROG6212POE.Models.Entities;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Text;
+using ClosedXML.Excel;
+
 
 namespace ST10384311PROG6212POE.Controllers
 {
     public class HomeController : Controller
-    {
+    { 
         private readonly ApplicationDbContext _context;
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        // Constructor to initialize the database context, logger, and Identity services
-        public HomeController(ApplicationDbContext context, ILogger<HomeController> logger, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        // Constructor to initialize the database context, sign-in manager, and user manager
+        public HomeController(ApplicationDbContext context, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, ILogger<HomeController> logger)
         {
             _context = context;
             _logger = logger;
-            _userManager = userManager;
             _signInManager = signInManager;
+            _userManager = userManager;
         }
-
-        // GET: Index (home page)
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to return the different views
         public IActionResult Index()
         {
             return View();
         }
 
-        // GET: SubmitClaims (for submitting claims)
-        [Authorize(Roles = "Lecturer")] // Only Lecturers can submit claims
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         public IActionResult SubmitClaims()
         {
             return View();
         }
-
-        // GET: CreateAccount (page to create an account)
-        public IActionResult CreateAccount()
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method for setting the user role (via GET request)
+        // Role selection via a GET request
+        [HttpGet]
+        public IActionResult SetRole(string role)
         {
-            return View();
-        }
+            if (string.IsNullOrEmpty(role))
+            {
+                _logger.LogError("No role selected in SetRole.");
+                return RedirectToAction("Index");
+            }
 
-        // POST: Handle submission of claims (Lecturer submits claims)
+            TempData["SelectedRole"] = role; // Store the role temporarily
+            _logger.LogInformation("Role selected: {Role}", role);
+            return RedirectToAction("Login");
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Handle role-specific redirection (called after login)
+        [HttpGet]
+        public IActionResult RedirectToRolePage()
+        {
+            var role = TempData["SelectedRole"]?.ToString();
+            _logger.LogInformation("Redirecting based on role: {Role}", role);
+
+            if (role == "Lecturer")
+            {
+                return RedirectToAction("SubmitClaims");
+            }
+            else if (role == "Administrator")
+            {
+                return RedirectToAction("ProcessClaims");
+            }
+            else if (role == "HR")
+            {
+                return RedirectToAction("HRDashboard");
+            }
+
+            _logger.LogError("Invalid role in RedirectToRolePage: {Role}", role);
+            return RedirectToAction("Index");
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to handle login (POST request)
         [HttpPost]
-        [Authorize(Roles = "Lecturer")] // Only Lecturers can submit claims
+        public async Task<IActionResult> LoginUserIn(string email, string password)
+        {
+            var result = await _signInManager.PasswordSignInAsync(email, password, false, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                var roles = await _userManager.GetRolesAsync(user);
+
+                // Fetch the role from TempData (selected role by user before login)
+                var selectedRole = TempData["SelectedRole"]?.ToString();
+
+                if (selectedRole != null && roles.Contains(selectedRole))
+                {
+                    // Redirect based on role
+                    if (selectedRole == "Lecturer")
+                    {
+                        return RedirectToAction("SubmitClaims");
+                    }
+                    else if (selectedRole == "Administrator")
+                    {
+                        return RedirectToAction("ProcessClaims");
+                    }
+                    else if (selectedRole == "HR")
+                    {
+                        return RedirectToAction("HRDashboard");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "You do not have permission for the selected role.");
+                    return View("Login");
+                }
+            }
+
+            ModelState.AddModelError("", "Invalid email or password.");
+            return View("Login");
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to handle the submission of claims (POST request)
+        [HttpPost]
+        [Authorize(Roles = "Lecturer")]
         public async Task<IActionResult> SubmitClaims(Claims claim, IFormFile supportingDocs)
         {
-            const decimal hourlyRate = 200;
-
-            // Check if the model state is valid
             if (ModelState.IsValid)
             {
-                // Calculate the total amount based on the total hours and hourly rate
-                claim.TotalAmount = claim.TotalHours * hourlyRate;
+                claim.TotalAmount = claim.TotalHours * claim.HourlyRate;
 
-                // Handle supporting documents
                 if (supportingDocs != null && supportingDocs.Length > 0)
                 {
                     var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-                    var fileName = Path.GetFileName(supportingDocs.FileName);
-
                     if (!Directory.Exists(uploadsPath))
-                    {
                         Directory.CreateDirectory(uploadsPath);
-                    }
 
+                    var fileName = Path.GetFileName(supportingDocs.FileName);
                     var filePath = Path.Combine(uploadsPath, fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
@@ -87,20 +160,10 @@ namespace ST10384311PROG6212POE.Controllers
 
             return View(claim);
         }
-
-        // GET: ProcessClaims (for processing claims by Admins)
-        [Authorize(Roles = "Administrator")] // Only Administrators can process claims
-        public async Task<IActionResult> ProcessClaims()
-        {
-            var pendingClaims = await _context.Claims
-                .Where(c => c.Status == "Pending")
-                .ToListAsync();
-            return View(pendingClaims);
-        }
-
-        // POST: UpdateClaimStatus (for updating the status of a claim)
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to update the status of a claim (POST request)
         [HttpPost]
-        [Authorize(Roles = "Administrator")] // Only Administrators can update claim status
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateClaimStatus(int claimId, string newStatus)
         {
             var claim = await _context.Claims.FindAsync(claimId);
@@ -113,80 +176,132 @@ namespace ST10384311PROG6212POE.Controllers
 
             return NotFound();
         }
-
-        // GET: ClaimsStatus (for all claims, visible to all logged-in users)
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to return the ProcessClaims view with pending claims
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> ProcessClaims()
+        {
+            var pendingClaims = await _context.Claims
+                .Where(c => c.Status == "Pending")
+                .ToListAsync();
+            return View(pendingClaims);
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to return the ClaimsStatus view with all claims
+        [Authorize(Roles = "Lecturer")]
         public async Task<IActionResult> ClaimsStatus()
         {
             var claims = await _context.Claims.ToListAsync();
             return View(claims);
         }
-
-        // Action to handle user registration (GET)
-        public IActionResult Register()
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method for HR dashboard
+        [Authorize(Roles = "HR")]
+        public async Task<IActionResult> HRDashboard()
         {
-            return View();
+            // Fetch approved claims from the database
+            var approvedClaims = await _context.Claims
+                .Where(c => c.Status == "Approved")
+                .ToListAsync();
+
+            // Pass the claims to the view
+            return View(approvedClaims);
         }
-
-        // POST: Handle registration (creating new users)
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action to display the claims for HR to manage and process
+        [Authorize(Roles = "HR")]
+        public IActionResult GenerateReport()
         {
-            if (ModelState.IsValid)
+            var approvedClaims = _context.Claims.Where(c => c.Status == "Approved").ToList();
+
+            var csvBuilder = new StringBuilder();
+            csvBuilder.AppendLine("LecturerName,LecturerEmail,ClaimPeriod,TotalHours,TotalAmount");
+
+            foreach (var claim in approvedClaims)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmployeeRole = model.Role };
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    // Add role after successful registration
-                    await _userManager.AddToRoleAsync(user, model.Role);
-
-                    // Sign in the user after registration
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    return RedirectToAction("Index"); // Redirect to Home page
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
+                csvBuilder.AppendLine($"{claim.LecturerName},{claim.LecturerEmail},{claim.ClaimPeriod},{claim.TotalHours},{claim.TotalAmount}");
             }
-            return View(model);
-        }
 
-        // Action for user login (GET)
-        public IActionResult Login()
-        {
-            return View();
+            return File(Encoding.UTF8.GetBytes(csvBuilder.ToString()), "text/csv", "ApprovedClaimsReport.csv");
         }
-
-        // POST: Handle user login
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action to generate and download the claims report as an Excel file
+        [Authorize(Roles = "HR")]
+        public IActionResult GenerateClaimsReport()
         {
-            if (ModelState.IsValid)
+            // Get approved claims from the database
+            var claims = _context.Claims
+                .Where(c => c.Status == "Approved") // Get only approved claims
+                .ToList();
+
+            // Create a new Excel workbook
+            using (var workbook = new XLWorkbook())
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                // Add a worksheet to the workbook
+                var worksheet = workbook.Worksheets.Add("Approved Claims");
+                var currentRow = 1;
+
+                // Set headers for the report
+                worksheet.Cell(currentRow, 1).Value = "Lecturer Name";
+                worksheet.Cell(currentRow, 2).Value = "Lecturer Email";
+                worksheet.Cell(currentRow, 3).Value = "Claim Period";
+                worksheet.Cell(currentRow, 4).Value = "Total Hours";
+                worksheet.Cell(currentRow, 5).Value = "Hourly Rate";
+                worksheet.Cell(currentRow, 6).Value = "Total Amount";
+                currentRow++;
+
+                // Add data for each claim
+                foreach (var claim in claims)
                 {
-                    return RedirectToAction("Index", "Home");
+                    worksheet.Cell(currentRow, 1).Value = claim.LecturerName;
+                    worksheet.Cell(currentRow, 2).Value = claim.LecturerEmail;
+                    worksheet.Cell(currentRow, 3).Value = claim.ClaimPeriod;
+                    worksheet.Cell(currentRow, 4).Value = claim.TotalHours;
+                    worksheet.Cell(currentRow, 5).Value = claim.HourlyRate;
+                    worksheet.Cell(currentRow, 6).Value = claim.TotalAmount;
+                    currentRow++;
                 }
-                ModelState.AddModelError("", "Invalid login attempt.");
+
+                // Format the columns for better readability
+                worksheet.Columns().AdjustToContents();
+
+                // Write the file to a memory stream
+                var memoryStream = new MemoryStream();
+                workbook.SaveAs(memoryStream);
+                memoryStream.Position = 0; 
+
+                // Return the Excel file as a downloadable response
+                return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ApprovedClaimsReport.xlsx");
             }
-            return View(model);
         }
-
-        // POST: Logout (user logs out)
-        public async Task<IActionResult> Logout()
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action to manage and update lecturer data
+        [Authorize(Roles = "HR")]
+        public IActionResult ManageLecturerData()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home"); // Redirect to Home after logout
+            // Implement functionality to view/update lecturer data
+            var lecturers = _context.Claims
+                .Select(c => new { c.LecturerName, c.LecturerEmail })
+                .Distinct()
+                .ToList();
+            return View(lecturers); // Display list of lecturers with data
         }
-
-        // Action method to return the Error view
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action to update lecturer data (could include name, email, etc.)
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public IActionResult UpdateLecturerData(string lecturerEmail, string newLecturerName)
+        {
+            var lecturer = _context.Claims.FirstOrDefault(c => c.LecturerEmail == lecturerEmail);
+            if (lecturer != null)
+            {
+                lecturer.LecturerName = newLecturerName; // Update lecturer name
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ManageLecturerData");
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Action method to return the Error view with error details
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

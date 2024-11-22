@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Manage Lecturer Data";
+}
+
+@model IEnumerable<ST10384311PROG6212POE.Models.Entities.Claims>
+
+<!Doctype html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+ 
+
+    <h2>Manage Lecturer Data</h2>
+
+    <!-- Table displaying lecturer data -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Lecturer Name</th>
+                <th>Lecturer Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lecturer in Model)
+            {
+                <tr>
+                    <td>@lecturer.LecturerName</td>
+                    <td>@lecturer.LecturerEmail</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Form for updating lecturer data -->
+    <form method="post" asp-action="UpdateLecturerData">
+        <div class="form-group">
+            <label for="lecturerEmail">Lecturer Email:</label>
+            <input type="text" id="lecturerEmail" name="lecturerEmail" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="newLecturerName">New Lecturer Name:</label>
+            <input type="text" id="newLecturerName" name="newLecturerName" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Update Lecturer Data</button>
+    </form>
+
+    </body>
+</html>

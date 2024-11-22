@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "HR Dashboard";
+}
+
+@model IEnumerable<ST10384311PROG6212POE.Models.Entities.Claims>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/hrdashboard.css" /> <!-- Updated to reference hrdashboard.css -->
+</head>
+<body>
+    <div class="hr-dashboard-container">
+        <h2>HR Dashboard</h2>
+
+        <!-- Table displaying approved claims -->
+        <table class="hr-dashboard-table">
+            <thead>
+                <tr>
+                    <th>Lecturer Name</th>
+                    <th>Lecturer Email</th>
+                    <th>Claim Period</th>
+                    <th>Total Hours</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model)
+                {
+                    <tr>
+                        <td>@claim.LecturerName</td>
+                        <td>@claim.LecturerEmail</td>
+                        <td>@claim.ClaimPeriod</td>
+                        <td>@claim.TotalHours</td>
+                        <td>@claim.TotalAmount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Button to generate and download the report -->
+        <div class="hr-dashboard-btn-container">
+            <a href="@Url.Action("GenerateClaimsReport")" class="hr-dashboard-btn">Download Approved Claims Report</a>
+        </div>
+    </div>
+</body>
+</html>
+
+<!------------------------------------------------------End of File------------------------------------------->

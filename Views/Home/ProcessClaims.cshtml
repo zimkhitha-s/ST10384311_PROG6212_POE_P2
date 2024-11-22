@@ -11,47 +11,44 @@
 </head>
 <body>
     <div class="claims-container">
-        <!--Displaying the Claims Submitted by the Lecturer for the Administrators (Programme Coordinators and Academic Managers) to Process them-->
-        <h2>Pending Claims for Approval</h2>
+    <h2>Pending Claims for Approval</h2>
 
-        <table class="claims-table">
-            <!--The Table with the claim information-->
-            <thead>
-                <tr>
-                    <!--The Tabble Headers-->
-                    <th>Lecturer Name</th>
-                    <th>Lecturer Email</th>
-                    <th>Claim Period</th>
-                    <th>Total Hours</th>
-                    <th>Total Amount</th>
-                    <th>Documents</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--The Table Body-->
+    <table class="claims-table">
+        <thead>
+            <tr>
+                <th>Lecturer Name</th>
+                <th>Lecturer Email</th>
+                <th>Claim Period</th>
+                <th>Total Hours</th>
+                <th>Total Amount</th>
+                <th>Documents</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
                 @if (Model != null && Model.Any())
                 {
-                    <!--Loop through the claims and display them in the table-->
                     foreach (var claim in Model)
                     {
-                        <tr>
-                            <td>@claim.LecturerName</td>
-                            <td>@claim.LecturerEmail</td>
-                            <td>@claim.ClaimPeriod</td>
-                            <td>@claim.TotalHours</td>
-                            <td>@claim.TotalAmount</td>
-                            <td><a href="@claim.SupportingDocsUrl">View Document</a></td>
-                            <td>@claim.Status</td>
-                            <td>
-                                <form asp-action="UpdateClaimStatus" method="post">
-                                    <input type="hidden" name="claimId" value="@claim.ClaimId" />
-                                    <button type="submit" name="newStatus" value="Approved" class="btn-approve">Approve</button>
-                                    <button type="submit" name="newStatus" value="Rejected" class="btn-reject">Reject</button>
-                                </form>
-                            </td>
-                        </tr>
+                            <tr>
+                            <td>@claim.LecturerName</td> <!-- Use the navigation property -->
+                            <td>@claim.LecturerEmail</td> <!-- Use the navigation property -->
+                                <td>@claim.ClaimPeriod</td>
+                                <td>@claim.TotalHours</td>
+                                <td>@claim.TotalAmount</td>
+                                <td>
+                                    <a href="@claim.SupportingDocsUrl">View Document</a>
+                                </td>
+                                <td>@claim.Status</td>
+                                <td>
+                                    <form asp-action="UpdateClaimStatus" method="post">
+                                        <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                        <button type="submit" name="newStatus" value="Approved" class="btn-approve">Approve</button>
+                                        <button type="submit" name="newStatus" value="Rejected" class="btn-reject">Reject</button>
+                                    </form>
+                                </td>
+                            </tr>
                     }
                 }
                 else
@@ -60,9 +57,10 @@
                         <td colspan="8">No pending claims.</td>
                     </tr>
                 }
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
 <!---------------------------------------------------------------End Of File----------------------------------------------------->

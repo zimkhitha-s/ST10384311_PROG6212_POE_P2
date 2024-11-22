@@ -1,3 +1,10 @@
+/*
+ * 
+Zimkhitha Sasanti 
+ST10384311
+GR 1
+PROG6212 Final POE
+ */
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ST10384311PROG6212POE.Data;
@@ -6,28 +13,35 @@ namespace ST10384311PROG6212POE
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Add the Database Context to the Services
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Add Identity services (for user authentication and authorization)
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add MVC and Identity pages
-            builder.Services.AddControllersWithViews();
-
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    await ST10384311PROG6212POE.Data.DatabaseSeeder.SeedUsersAndRoles(services);
+                    Console.WriteLine("Database seeding completed successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error during seeding: {ex.Message}");
+                }
+            }
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -39,9 +53,10 @@ namespace ST10384311PROG6212POE
 
             app.UseRouting();
 
-            app.UseAuthentication();  // Authentication middleware
-            app.UseAuthorization();   // Authorization middleware
+            app.UseAuthentication();
+            app.UseAuthorization();
 
+            // Map default controller route
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -49,5 +64,5 @@ namespace ST10384311PROG6212POE
             app.Run();
         }
     }
-
 }
+//-------------------------------------------------------------------------------------------End Of File--------------------------------------------------------------------//

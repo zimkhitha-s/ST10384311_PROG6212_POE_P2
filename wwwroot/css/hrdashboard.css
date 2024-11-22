@@ -1,4 +1,4 @@
-﻿/*The CSS for the Claims Status Page*/
+﻿/* The CSS for the HR Dashboard Page */
 
 body {
     background-color: antiquewhite;
@@ -7,7 +7,7 @@ body {
     padding: 0;
 }
 
-.claims-status-container {
+.hr-dashboard-container {
     max-width: 1000px;
     margin: 50px auto;
     padding: 20px;
@@ -17,7 +17,7 @@ body {
     border: 3px solid black;
 }
 
-.claims-status-container h2 {
+.hr-dashboard-container h2 {
     text-align: center;
     font-size: 32px;
     color: black;
@@ -25,36 +25,36 @@ body {
     margin-bottom: 20px;
 }
 
-.claims-table {
+.hr-dashboard-table {
     width: 100%;
     border-collapse: collapse;
     font-family: 'Arial', sans-serif;
 }
 
-.claims-table th, .claims-table td {
+.hr-dashboard-table th, .hr-dashboard-table td {
     padding: 12px 15px;
     text-align: left;
     border: 1px solid black;
 }
 
-.claims-table thead th {
+.hr-dashboard-table thead th {
     background-color: black;
     color: white;
     font-weight: bold;
 }
 
-.claims-table tbody tr:nth-child(even) {
+.hr-dashboard-table tbody tr:nth-child(even) {
     background-color: white;
 }
 
-.claims-table a {
+.hr-dashboard-table a {
     color: #007bff;
     text-decoration: none;
 }
 
-.claims-table a:hover {
+.hr-dashboard-table a:hover {
     text-decoration: underline;
-    }
+}
 
 .status {
     padding: 5px 10px;
@@ -73,7 +73,30 @@ body {
     color: white;
 }
 
-.status.rejected { /* Add this for rejected claims */
+.status.rejected {
     background-color: #dc3545;
+    color: white;
+}
+
+/* Center the "Download Report" button and style it like the submit button in ClaimsStatus */
+.hr-dashboard-btn-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hr-dashboard-btn {
+    padding: 12px 25px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.hr-dashboard-btn:hover {
+    background-color: #333;
     color: white;
 }

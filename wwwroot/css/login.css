@@ -1,0 +1,91 @@
+﻿/*The css for the Login Page*/
+
+/* General Styles */
+body {
+    background-color: antiquewhite;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for Layout */
+.container {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    padding: 0 20px;
+}
+
+/* Right Section (Login Form) */
+.login-form {
+    background-color: #FDF1DF;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px; /* Limit form width */
+    width: 100%; /* Ensure it takes full available space */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 4px solid black;
+}
+
+    .login-form h2 {
+        text-align: center;
+        font-size: 32px;
+        color: black;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .login-form label {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: black;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="email"],
+    .login-form input[type="password"],
+    .login-form select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: #fff;
+        font-size: 16px;
+        color: black;
+    }
+
+    .login-form textarea {
+        resize: none;
+        height: 100px;
+    }
+
+    /* Button Styling */
+    .login-form .login-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 12px;
+        background-color: black;
+        color: white;
+        font-size: 18px;
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 50%; /* Adjust button width */
+    }
+
+        .login-form .login-btn:hover {
+            background-color: #333;
+        }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-form {
+        width: 90%;
+    }
+}
+
